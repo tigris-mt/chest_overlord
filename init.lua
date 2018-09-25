@@ -92,6 +92,8 @@ function m.register(name, d)
                         else
                             reply(pos, {type = "error", error = "slot"})
                         end
+                    elseif msg.type == "label" then
+                        meta:set_string("infotext", tostring(msg.text))
                     end
                 end,
             },

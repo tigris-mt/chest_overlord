@@ -3,6 +3,7 @@
 * `{type = "move", from = <slot>, to = <slot>}`
 * `{type = "inv"}`
 * `{type = "slot", index = <slot>}`
+* `{type = "label", text = "some infotext"}`
 ## Item Format
 * `{name = "mod:item", count = 1, meta = {a = 1, b = 2}, wear = 0}`
 ## Events
