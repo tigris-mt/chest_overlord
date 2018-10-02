@@ -4,6 +4,8 @@
 * `{type = "inv"}`
 * `{type = "slot", index = <slot>}`
 * `{type = "label", text = "some infotext"}`
+* If `sbp_memory` is installed: `{type = "sbp_memory_set", index = <slot>, data = <data>}`
+* If `sbp_memory` is installed: `{type = "sbp_memory_get", index = <slot>}`
 ## Item Format
 * `{name = "mod:item", count = 1, meta = {a = 1, b = 2}, wear = 0}`
 ## Events
@@ -12,5 +14,8 @@
 ## Responses
 * `{type = "inv", list = {<item>, {count = 0}, <item>, ...}}`
 * `{type = "slot", index = 4, item = <item>}`
-* `{type = "success"}`
+* `{type = "moveok"}`
+* `{type = "memget", index = <slot>, data = <data>}`
+* `{type = "memset"}`
+* `{type = "error", error = "memset", mem_error = "serialize/limit"}`
 * `{type = "error", error = "slot"}`

@@ -88,12 +88,30 @@ function m.register(name, d)
                             main[msg.from] = tmp
                             -- And write list back.
                             meta:get_inventory():set_list("main", main)
-                            reply(pos, {type = "success"})
+                            reply(pos, {type = "moveok"})
                         else
                             reply(pos, {type = "error", error = "slot"})
                         end
                     elseif msg.type == "label" then
                         meta:set_string("infotext", tostring(msg.text))
+                    elseif msg.type == "sbp_memory_set" and minetest.get_modpath("sbp_memory") then
+                        if main[msg.index] and minetest.get_item_group(main[msg.index]:get_name(), "sbp_memory") > 0 then
+                            local ok, err = minetest.registered_items[main[msg.index]:get_name()].sbp_set(main[msg.index]:get_meta(), msg.data)
+                            if ok then
+                                meta:get_inventory():set_list("main", main)
+                                reply(pos, {type = "memset"})
+                            else
+                                reply(pos, {type = "error", error = "memset", mem_error = err})
+                            end
+                        else
+                            reply(pos, {type = "error", error = "slot"})
+                        end
+                    elseif msg.type == "sbp_memory_get" and minetest.get_modpath("sbp_memory") then
+                        if main[msg.index] and minetest.get_item_group(main[msg.index]:get_name(), "sbp_memory") > 0 then
+                            reply(pos, {type = "memget", data = minetest.deserialize(main[msg.index]:get_meta():get_string("data"))})
+                        else
+                            reply(pos, {type = "error", error = "slot"})
+                        end
                     end
                 end,
             },
